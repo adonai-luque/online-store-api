@@ -13,13 +13,14 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  host: <%= ENV["ONLINE_STORE_API_DATABASE_URL"] %>
+  username: <%= ENV["ONLINE_STORE_API_DATABASE_USERNAME"] %>
+  password: <%= ENV["ONLINE_STORE_API_DATABASE_PASSWORD"] %>
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: online_store_api_development
+  database: <%= ENV["ONLINE_STORE_API_DATABASE_NAME"] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -50,6 +51,6 @@ test:
 #
 production:
   <<: *default
-  database: online_store_api_production
-  username: online_store_api
+  database: <%= ENV["ONLINE_STORE_API_DATABASE_NAME"] %>
+  username: <%= ENV["ONLINE_STORE_API_DATABASE_USERNAME"] %>
   password: <%= ENV['ONLINE_STORE_API_DATABASE_PASSWORD'] %>
