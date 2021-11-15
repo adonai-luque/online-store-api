@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
+    @products = params["query"] ? Product.where("name LIKE ?", "%#{params["query"]}%") : Product.all
 
     render json: @products
   end
